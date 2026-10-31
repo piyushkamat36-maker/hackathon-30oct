@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — FAIRSHIFT</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="logo-icon">⚖️</span>
+            <span>FAIRSHIFT</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#overview" class="nav-item active" data-section="overview">
+                <span class="nav-icon">📊</span> Overview
+            </a>
+            <a href="#allocation" class="nav-item" data-section="allocation">
+                <span class="nav-icon">🧮</span> Allocation
+            </a>
+            <a href="#reassignment" class="nav-item" data-section="reassignment">
+                <span class="nav-icon">🔄</span> Reassignment
+            </a>
+            <a href="#appeals" class="nav-item" data-section="appeals">
+                <span class="nav-icon">🔍</span> Appeals
+            </a>
+            <a href="#validation" class="nav-item" data-section="validation">
+                <span class="nav-icon">✅</span> Validation
+            </a>
+            <a href="#audit" class="nav-item" data-section="audit">
+                <span class="nav-icon">📜</span> Audit Log
+            </a>
+            <a href="#data" class="nav-item" data-section="data">
+                <span class="nav-icon">📁</span> Data
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-info" id="userInfo">
+                <div class="user-avatar">A</div>
+                <div class="user-meta">
+                    <span class="user-name">Admin</span>
+                    <span class="user-role">Allocator</span>
+                </div>
+            </div>
+            <button id="logoutBtn" class="btn btn-ghost btn-sm">Sign out</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <h1 id="pageTitle">Overview</h1>
+            <div class="topbar-actions">
+                <span class="solver-status" id="solverBadge">
+                    <span class="status-dot optimal"></span> Optimal
+                </span>
+                <button class="btn btn-outline btn-sm" id="refreshBtn">Refresh</button>
+            </div>
+        </header>
+
+        <!-- OVERVIEW -->
+        <section id="section-overview" class="content-section active">
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <div class="metric-label">Applicants</div>
+                    <div class="metric-value" id="m-applicants">180</div>
+                    <div class="metric-sub">12 withdrawn</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Programs</div>
+                    <div class="metric-value" id="m-programs">10</div>
+                    <div class="metric-sub">Total seats: 165</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Assigned</div>
+                    <div class="metric-value" id="m-assigned">162</div>
+                    <div class="metric-sub">3 unassigned</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Pref. Satisfaction</div>
+                    <div class="metric-value" id="m-pref">86.4%</div>
+                    <div class="metric-sub">Avg rank: 1.42</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Reassignments</div>
+                    <div class="metric-value" id="m-reassign">0</div>
+                    <div class="metric-sub">Since last solve</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Solver Status</div>
+                    <div class="metric-value status-text" id="m-status">OPTIMAL</div>
+                    <div class="metric-sub">0.84 s</div>
+                </div>
+            </div>
+
+            <div class="panel-grid">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Program Fill Rates</h3>
+                    </div>
+                    <div class="panel-body" id="fillRates">
+                        <!-- filled by JS -->
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Preference Distribution</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="pref-bars" id="prefBars">
+                            <!-- filled by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ALLOCATION -->
+        <section id="section-allocation" class="content-section">
+            <div class="toolbar">
+                <button class="btn btn-primary" id="runInitialBtn">Run Initial Allocation</button>
+                <button class="btn btn-outline" id="exportAllocBtn">Export CSV</button>
+                <span class="toolbar-info" id="allocInfo">Last solved: —</span>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>Current Assignments</h3>
+                    <input type="search" id="allocSearch" placeholder="Search applicant or program…" class="search-input">
+                </div>
+                <div class="table-wrap">
+                    <table class="data-table" id="allocTable">
+                        <thead>
+                            <tr>
+                                <th>Applicant</th>
+                                <th>Assigned Program</th>
+                                <th>Preference Rank</th>
+                                <th>Eligibility</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- REASSIGNMENT -->
+        <section id="section-reassignment" class="content-section">
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>Simulate Capacity Change or Withdrawal</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Action Type</label>
+                            <select id="changeType">
+                                <option value="capacity">Capacity Change</option>
+                                <option value="withdrawal">Applicant Withdrawal</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="programSelectGroup">
+                            <label>Program</label>
+                            <select id="changeProgram"></select>
+                        </div>
+                        <div class="form-group" id="capacityGroup">
+                            <label>New Capacity</label>
+                            <input type="number" id="newCapacity" min="0" max="50" value="15">
+                        </div>
+                        <div class="form-group" id="applicantSelectGroup" hidden>
+                            <label>Applicant to Withdraw</label>
+                            <select id="withdrawApplicant"></select>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="runReassignBtn">Recompute Allocation</button>
+                </div>
+            </div>
+
+            <div class="panel" id="reassignResult" hidden>
+                <div class="panel-header">
+                    <h3>Reassignment Summary</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="metrics-row compact">
+                        <div class="metric-card small">
+                            <div class="metric-label">Changed</div>
+                            <div class="metric-value" id="r-changed">—</div>
+                        </div>
+                        <div class="metric-card small">
+                            <div class="metric-label">Preserved</div>
+                            <div class="metric-value" id="r-preserved">—</div>
+                        </div>
+                        <div class="metric-card small">
+                            <div class="metric-label">New Pref %</div>
+                            <div class="metric-value" id="r-pref">—</div>
+                        </div>
+                        <div class="metric-card small">
+                            <div class="metric-label">Status</div>
+                            <div class="metric-value" id="r-status">—</div>
+                        </div>
+                    </div>
+                    <h4>Assignments that changed</h4>
+                    <div class="table-wrap">
+                        <table class="data-table" id="changeTable">
+                            <thead>
+                                <tr>
+                                    <th>Applicant</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Reason</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- APPEALS -->
+        <section id="section-appeals" class="content-section">
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>Counterfactual Appeal Evaluation</h3>
+                </div>
+                <div class="panel-body">
+                    <p class="help-text">Select an applicant and a requested program. The system will attempt to force that assignment and report the impact on the rest of the allocation.</p>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Applicant</label>
+                            <select id="appealApplicant"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Requested Program</label>
+                            <select id="appealProgram"></select>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="runAppealBtn">Evaluate Appeal</button>
+                </div>
+            </div>
+
+            <div class="panel" id="appealResult" hidden>
+                <div class="panel-header">
+                    <h3>Counterfactual Analysis</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="appeal-verdict" id="appealVerdict"></div>
+                    <div class="metrics-row compact">
+                        <div class="metric-card small">
+                            <div class="metric-label">Affected Applicants</div>
+                            <div class="metric-value" id="a-affected">—</div>
+                        </div>
+                        <div class="metric-card small">
+                            <div class="metric-label">Δ Preference Score</div>
+                            <div class="metric-value" id="a-delta">—</div>
+                        </div>
+                        <div class="metric-card small">
+                            <div class="metric-label">Extra Reassignments</div>
+                            <div class="metric-value" id="a-extra">—</div>
+                        </div>
+                        <div class="metric-card small">
+                            <div class="metric-label">Feasibility</div>
+                            <div class="metric-value" id="a-feas">—</div>
+                        </div>
+                    </div>
+                    <h4>Impacted Assignments</h4>
+                    <div class="table-wrap">
+                        <table class="data-table" id="impactTable">
+                            <thead>
+                                <tr>
+                                    <th>Applicant</th>
+                                    <th>Original</th>
+                                    <th>After Appeal</th>
+                                    <th>Pref Change</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="explanation-box" id="appealExplanation"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VALIDATION -->
+        <section id="section-validation" class="content-section">
+            <div class="toolbar">
+                <button class="btn btn-primary" id="runValidateBtn">Run Independent Validation</button>
+            </div>
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>Constraint Compliance Report</h3>
+                </div>
+                <div class="panel-body" id="validationReport">
+                    <p class="muted">Click the button above to verify the current allocation against all declared constraints.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AUDIT -->
+        <section id="section-audit" class="content-section">
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>Audit Trail</h3>
+                </div>
+                <div class="table-wrap">
+                    <table class="data-table" id="auditTable">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Action</th>
+                                <th>Details</th>
+                                <th>Solver Status</th>
+                                <th>User</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- DATA -->
+        <section id="section-data" class="content-section">
+            <div class="panel-grid">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Programs & Capacities</h3>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="data-table" id="programsTable">
+                            <thead>
+                                <tr>
+                                    <th>Program</th>
+                                    <th>Capacity</th>
+                                    <th>Assigned</th>
+                                    <th>Remaining</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Sample Applicants (first 20)</h3>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="data-table" id="applicantsTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Top Preference</th>
+                                    <th>Eligible Programs</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" hidden></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
