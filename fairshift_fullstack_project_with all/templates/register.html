@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register — FAIRSHIFT</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚖️</span>
+                <span class="logo-text">FAIRSHIFT</span>
+            </a>
+            <div class="nav-links">
+                <a href="login.html" class="btn btn-outline">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Create your account</h1>
+                <p>Start managing fair seat allocations in minutes</p>
+            </div>
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Alex Rivera" autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Work Email</label>
+                    <input type="email" id="email" name="email" required placeholder="you@organization.org" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="org">Organization</label>
+                    <input type="text" id="org" name="org" required placeholder="Training Academy / University">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required minlength="6" placeholder="At least 6 characters" autocomplete="new-password">
+                </div>
+                <div class="form-group">
+                    <label for="confirm">Confirm Password</label>
+                    <input type="password" id="confirm" name="confirm" required minlength="6" placeholder="Repeat password">
+                </div>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="terms" required> I agree to the demo terms of use
+                </label>
+                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+            </form>
+            <div class="auth-footer">
+                <p>Already have an account? <a href="login.html">Sign in</a></p>
+            </div>
+            <div id="registerMessage" class="message" hidden></div>
+        </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

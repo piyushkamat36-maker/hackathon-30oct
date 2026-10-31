@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — FAIRSHIFT</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚖️</span>
+                <span class="logo-text">FAIRSHIFT</span>
+            </a>
+            <div class="nav-links">
+                <a href="register.html" class="btn btn-outline">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Welcome back</h1>
+                <p>Sign in to manage allocations and evaluate appeals</p>
+            </div>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="you@organization.org" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="••••••••" autocomplete="current-password">
+                </div>
+                <div class="form-row">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="remember"> Remember me
+                    </label>
+                    <a href="#" class="link-sm">Forgot password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </form>
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="register.html">Create one</a></p>
+            </div>
+            <div id="loginMessage" class="message" hidden></div>
+            <div class="demo-hint">
+                <strong>Demo:</strong> Use any email + password (min 6 chars) or try<br>
+                <code>admin@fairshift.io</code> / <code>demo1234</code>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAIRSHIFT — Auditable Allocation & Decision Support</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">⚖️</span>
+                <span class="logo-text">FAIRSHIFT</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#tech">Technology</a>
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="register.html" class="btn btn-primary">Get Started</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Menu">☰</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <div class="badge">Constraint Optimization · Decision Support</div>
+            <h1>Fair, Transparent & Minimally Disruptive Allocations</h1>
+            <p class="hero-sub">
+                FAIRSHIFT uses mathematical constraint optimization to allocate limited seats across training programs while balancing eligibility, capacity, preferences, and existing assignments — with full auditability and counterfactual appeal analysis.
+            </p>
+            <div class="hero-cta">
+                <a href="register.html" class="btn btn-primary btn-lg">Start Allocating</a>
+                <a href="#how-it-works" class="btn btn-ghost btn-lg">See How It Works</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-num">~200</span>
+                    <span class="stat-label">Applicants</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">10</span>
+                    <span class="stat-label">Programs</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">CP-SAT</span>
+                    <span class="stat-label">Solver Engine</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">100%</span>
+                    <span class="stat-label">Auditable</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="card-stack">
+                <div class="preview-card card-1">
+                    <div class="pc-header">Initial Allocation</div>
+                    <div class="pc-body">
+                        <div class="bar"><span style="width:92%"></span></div>
+                        <div class="bar"><span style="width:78%"></span></div>
+                        <div class="bar"><span style="width:85%"></span></div>
+                    </div>
+                    <div class="pc-footer">Preference Satisfaction: 87%</div>
+                </div>
+                <div class="preview-card card-2">
+                    <div class="pc-header">Reassignment</div>
+                    <div class="pc-body">
+                        <div class="change-item">↑ Capacity +2</div>
+                        <div class="change-item">3 reassignments</div>
+                        <div class="change-item">0 violations</div>
+                    </div>
+                </div>
+                <div class="preview-card card-3">
+                    <div class="pc-header">Appeal Analysis</div>
+                    <div class="pc-body">
+                        <div class="appeal-row">Impact: 2 others</div>
+                        <div class="appeal-row">Δ Pref: −1.2%</div>
+                        <div class="appeal-row status-ok">Feasible</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="features" class="section features">
+        <div class="container">
+            <h2 class="section-title">Core Capabilities</h2>
+            <p class="section-sub">Everything needed for valid, transparent, and stable seat allocation under changing conditions.</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧮</div>
+                    <h3>Constraint Optimization</h3>
+                    <p>Google OR-Tools CP-SAT models eligibility, capacities, ranked preferences, and existing assignments to produce optimal or high-quality feasible solutions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Minimal Disruption Reassignment</h3>
+                    <p>When capacities change or applicants withdraw, the engine recomputes allocations while preserving as many valid existing placements as possible.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Counterfactual Appeals</h3>
+                    <p>Evaluate any requested placement by comparing the baseline solution with an alternative that accommodates the request, quantifying effects on others.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Independent Validation</h3>
+                    <p>A separate validation layer verifies every assignment against declared rules and clearly distinguishes proven infeasibility from timeouts or unresolved outcomes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📜</div>
+                    <h3>Full Audit Trail</h3>
+                    <p>Every allocation change, capacity update, and appeal decision is logged with timestamps, solver status, and human-readable explanations.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Transparent Metrics</h3>
+                    <p>Preference satisfaction, reassignment counts, affected applicants, and constraint compliance are displayed for every solution.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="section how-it-works">
+        <div class="container">
+            <h2 class="section-title">How FAIRSHIFT Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">01</div>
+                    <h3>Model the Problem</h3>
+                    <p>Applicants, programs, eligibility rules, seat capacities, ranked preferences, and existing assignments are encoded as a formal constraint optimization model.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">02</div>
+                    <h3>Solve with CP-SAT</h3>
+                    <p>The solver finds an assignment that satisfies all hard constraints while maximizing preference satisfaction and minimizing disruption to confirmed placements.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">03</div>
+                    <h3>Handle Changes</h3>
+                    <p>On withdrawals or capacity updates the engine re-solves, identifying exactly which assignments must change and which can remain stable.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">04</div>
+                    <h3>Evaluate Appeals</h3>
+                    <p>Counterfactual analysis shows the impact of granting a request on other applicants, total preference score, and overall feasibility.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tech" class="section tech">
+        <div class="container">
+            <h2 class="section-title">Technology Foundation</h2>
+            <div class="tech-grid">
+                <div class="tech-item"><span class="tech-name">Python</span><span class="tech-desc">Modeling & business logic</span></div>
+                <div class="tech-item"><span class="tech-name">OR-Tools CP-SAT</span><span class="tech-desc">Constraint solver</span></div>
+                <div class="tech-item"><span class="tech-name">pandas</span><span class="tech-desc">Data validation</span></div>
+                <div class="tech-item"><span class="tech-name">SQLite</span><span class="tech-desc">Versioned persistence</span></div>
+                <div class="tech-item"><span class="tech-name">Streamlit-ready</span><span class="tech-desc">Interactive front-end</span></div>
+                <div class="tech-item"><span class="tech-name">pytest</span><span class="tech-desc">Constraint verification</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section cta-section">
+        <div class="container">
+            <h2>Ready to allocate fairly?</h2>
+            <p>Create an account and explore initial allocation, reassignment scenarios, and counterfactual appeal analysis with sample data.</p>
+            <a href="register.html" class="btn btn-primary btn-lg">Create Free Account</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">
+                <span class="logo-icon">⚖️</span> FAIRSHIFT
+            </div>
+            <p>Auditable allocation & decision-support system using constraint optimization.</p>
+            <p class="footer-note">© 2025 FAIRSHIFT Demo · Built for transparent seat allocation</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
